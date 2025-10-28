@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HOMA Alumni Meet Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts for elegance -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #FFD700;
+      --blue: #1769aa;
+      --light-blue: #E2EAFB;
+      --white: #fff;
+      --shadow: 0 8px 32px rgba(32, 120, 192, 0.14);
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--light-blue) 100%);
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: var(--white);
+      max-width: 540px;
+      margin: 2rem auto;
+      padding: 2.5rem 2rem;
+      border-radius: 1.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--gold);
+    }
+    h1 {
+      text-align: center;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    h2 {
+      text-align: center;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    label {
+      font-weight: 700;
+      display: block;
+      margin-top: 1rem;
+      color: var(--blue);
+      letter-spacing: 0.5px;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.7rem;
+      margin-top: 0.3rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--blue);
+      font-size: 1rem;
+      background: var(--light-blue);
+      color: var(--blue);
+      transition: border 0.2s;
+    }
+    input:focus, select:focus {
+      border: 2px solid var(--gold);
+      outline: none;
+    }
+    .row {
+      display: flex;
+      gap: 1rem;
+    }
+    .row > div {
+      flex: 1;
+    }
+    button {
+      width: 100%;
+      padding: 0.9rem;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--blue) 100%);
+      color: var(--white);
+      font-weight: bold;
+      border: none;
+      border-radius: 0.8rem;
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 10px rgba(23,105,170,0.07);
+    }
+    button:hover {
+      background: linear-gradient(90deg, var(--blue) 0%, var(--gold) 100%);
+    }
+    .admin-link {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+    .admin-link a {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .admin-link a:hover {
+      color: var(--gold);
+      text-decoration: underline;
+    }
+    .success {
+      padding: 1rem;
+      background: #eafaef;
+      color: var(--blue);
+      border-radius: 0.5rem;
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: 600;
+      border: 1px solid var(--gold);
+    }
+    @media (max-width: 700px) {
+      .container {
+        padding: 1.1rem 0.4rem;
+        max-width: 99vw;
+      }
+      table { font-size: 0.97rem; }
+    }
+    /* Admin Table Theme */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      box-shadow: var(--shadow);
+      margin-bottom: 1rem;
+    }
+    th {
+      background: var(--gold);
+      color: var(--blue);
+      padding: 8px;
+      border: 1px solid var(--blue);
+      font-weight: 700;
+    }
+    td {
+      padding: 8px;
+      border: 1px solid var(--light-blue);
+      color: var(--blue);
+      background: var(--white);
+    }
+    tr:nth-child(even) td {
+      background: var(--light-blue);
+    }
+    #stats {
+      background: var(--light-blue);
+      border-radius: 1rem;
+      border: 1px solid var(--gold);
+      padding: 1rem;
+      margin-bottom: 1.2rem;
+      color: var(--blue);
+      font-weight: 600;
+      font-size: 1.05rem;
+      box-shadow: 0 2px 10px rgba(255,215,0,0.06);
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="form-container">
+    <h1>HOMA Alumni Meet</h1>
+    <h2>27-28 December | Howly</h2>
+    <form id="alumniForm">
+      <label for="name">Full Name*</label>
+      <input type="text" id="name" name="name" required maxlength="50">
+
+      <label for="phone">Phone Number*</label>
+      <input type="tel" id="phone" name="phone" required pattern="[0-9]{10,13}" maxlength="13">
+
+      <label for="batch">Batch Year*</label>
+      <input type="number" id="batch" name="batch" required min="1960" max="2025">
+
+      <label for="persons">Number of Persons (including yourself)*</label>
+      <input type="number" id="persons" name="persons" required min="1" max="20">
+
+      <label>Accommodation Required?</label>
+      <select id="accommodation" name="accommodation" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+
+      <div class="row">
+        <div>
+          <label>Coming Day 1?</label>
+          <select id="day1" name="day1" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div>
+          <label>Coming Day 2?</label>
+          <select id="day2" name="day2" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Interested in Sports?</label>
+          <select id="sports" name="sports" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div>
+          <label>Interested in Cultural Program?</label>
+          <select id="cultural" name="cultural" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+      </div>
+
+      <label>Interested in Magazine Participation?</label>
+      <select id="magazine" name="magazine" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+
+      <button type="submit">Register</button>
+    </form>
+    <div class="success" id="successMsg" style="display:none;">
+      Registration Successful!<br>
+      Thank you for registering for HOMA Alumni Meet.
+    </div>
+    <div class="admin-link">
+      <a href="#" onclick="showAdminLogin(); return false;">Admin Login</a>
+    </div>
+  </div>
+
+  <!-- Admin Login Modal -->
+  <div class="container" id="admin-login" style="display:none; max-width:350px;">
+    <h1>Admin Access</h1>
+    <form id="adminForm">
+      <label for="adminPassword">Enter Password</label>
+      <input type="password" id="adminPassword" required maxlength="20">
+      <button type="submit">Login</button>
+    </form>
+    <div id="adminMsg" style="color:#d32f2f; text-align:center; margin-top:1rem; font-weight:600;"></div>
+    <div class="admin-link"><a href="#" onclick="hideAdminLogin(); return false;">Back to Registration</a></div>
+  </div>
+
+  <!-- Admin Page -->
+  <div class="container" id="admin-page" style="display:none; max-width:97vw;">
+    <h1>Alumni Registrations</h1>
+    <div id="stats"></div>
+    <div style="overflow-x:auto;">
+      <table id="adminTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Batch</th>
+            <th>Persons</th>
+            <th>Accommodation</th>
+            <th>Day 1</th>
+            <th>Day 2</th>
+            <th>Sports</th>
+            <th>Cultural</th>
+            <th>Magazine</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <button onclick="downloadPDF()" style="margin-top:2rem;">Download as PDF</button>
+    <div class="admin-link"><a href="#" onclick="logoutAdmin(); return false;">Logout</a></div>
+  </div>
+
+  <!-- jsPDF CDN for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    // ========== Registration ===========
+    const form = document.getElementById('alumniForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const data = {
+        name: form.name.value.trim(),
+        phone: form.phone.value.trim(),
+        batch: form.batch.value,
+        persons: Number(form.persons.value),
+        accommodation: form.accommodation.value,
+        day1: form.day1.value,
+        day2: form.day2.value,
+        sports: form.sports.value,
+        cultural: form.cultural.value,
+        magazine: form.magazine.value
+      };
+      // Save to localStorage
+      let registrations = JSON.parse(localStorage.getItem('alumniRegistrations') || '[]');
+      registrations.push(data);
+      localStorage.setItem('alumniRegistrations', JSON.stringify(registrations));
+
+      form.reset();
+      document.getElementById('successMsg').style.display = 'block';
+      setTimeout(()=>{ document.getElementById('successMsg').style.display = 'none'; }, 3500);
+    });
+
+    // ========== Admin Login ===========
+    function showAdminLogin() {
+      document.getElementById('form-container').style.display = 'none';
+      document.getElementById('admin-login').style.display = 'block';
+    }
+    function hideAdminLogin() {
+      document.getElementById('admin-login').style.display = 'none';
+      document.getElementById('form-container').style.display = 'block';
+    }
+    document.getElementById('adminForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const pwd = document.getElementById('adminPassword').value;
+      if (pwd === "masum24") {
+        document.getElementById('admin-login').style.display = 'none';
+        showAdminPage();
+      } else {
+        document.getElementById('adminMsg').textContent = "Incorrect password.";
+      }
+    });
+
+    function logoutAdmin() {
+      document.getElementById('admin-page').style.display = 'none';
+      document.getElementById('form-container').style.display = 'block';
+    }
+
+    // ========== Admin Page ===========
+    function showAdminPage() {
+      document.getElementById('admin-page').style.display = 'block';
+      loadAdminTable();
+      updateStats();
+    }
+
+    function loadAdminTable() {
+      const tbody = document.querySelector('#adminTable tbody');
+      tbody.innerHTML = '';
+      const registrations = JSON.parse(localStorage.getItem('alumniRegistrations') || '[]');
+      registrations.forEach(reg => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${reg.name}</td>
+          <td>${reg.phone}</td>
+          <td>${reg.batch}</td>
+          <td>${reg.persons}</td>
+          <td>${reg.accommodation}</td>
+          <td>${reg.day1}</td>
+          <td>${reg.day2}</td>
+          <td>${reg.sports}</td>
+          <td>${reg.cultural}</td>
+          <td>${reg.magazine}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function updateStats() {
+      const registrations = JSON.parse(localStorage.getItem('alumniRegistrations') || '[]');
+      let totalPersons = 0;
+      let totalDay1 = 0;
+      let totalDay2 = 0;
+      let totalAccommodation = 0;
+      let totalSports = 0;
+      let totalCultural = 0;
+      let totalMagazine = 0;
+      registrations.forEach(reg => {
+        totalPersons += reg.persons;
+        if (reg.day1 === "Yes") totalDay1 += reg.persons;
+        if (reg.day2 === "Yes") totalDay2 += reg.persons;
+        if (reg.accommodation === "Yes") totalAccommodation += reg.persons;
+        if (reg.sports === "Yes") totalSports += reg.persons;
+        if (reg.cultural === "Yes") totalCultural += reg.persons;
+        if (reg.magazine === "Yes") totalMagazine += reg.persons;
+      });
+      document.getElementById('stats').innerHTML = `
+        <span>👥 <b>Total Persons Registered:</b> ${totalPersons}</span><br>
+        <span>🔷 <b>Day 1 Participants:</b> ${totalDay1}</span><br>
+        <span>🔷 <b>Day 2 Participants:</b> ${totalDay2}</span><br>
+        <span>🏨 <b>Accommodation (Yes):</b> ${totalAccommodation}</span><br>
+        <span>🏅 <b>Interested in Sports:</b> ${totalSports}</span><br>
+        <span>🎭 <b>Interested in Cultural Program:</b> ${totalCultural}</span><br>
+        <span>📰 <b>Magazine Participation:</b> ${totalMagazine}</span>
+      `;
+    }
+
+    // ========== PDF Download ===========
+    function downloadPDF() {
+      const registrations = JSON.parse(localStorage.getItem('alumniRegistrations') || '[]');
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: "landscape" });
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(18);
+      doc.setTextColor(23,105,170);
+      doc.text("HOMA Alumni Registrations", 14, 16);
+      doc.setTextColor(255,215,0);
+      doc.setFontSize(13);
+      doc.text("27-28 December | Howly", 14, 26);
+      doc.setFontSize(11);
+      doc.setTextColor(23,105,170);
+
+      // Print stats
+      let totalPersons = 0, totalDay1 = 0, totalDay2 = 0, totalAccommodation = 0, totalSports = 0, totalCultural = 0, totalMagazine = 0;
+      registrations.forEach(reg => {
+        totalPersons += reg.persons;
+        if (reg.day1 === "Yes") totalDay1 += reg.persons;
+        if (reg.day2 === "Yes") totalDay2 += reg.persons;
+        if (reg.accommodation === "Yes") totalAccommodation += reg.persons;
+        if (reg.sports === "Yes") totalSports += reg.persons;
+        if (reg.cultural === "Yes") totalCultural += reg.persons;
+        if (reg.magazine === "Yes") totalMagazine += reg.persons;
+      });
+      let stats = [
+        `Total Persons Registered: ${totalPersons}`,
+        `Day 1 Participants: ${totalDay1}`,
+        `Day 2 Participants: ${totalDay2}`,
+        `Accommodation (Yes): ${totalAccommodation}`,
+        `Interested in Sports: ${totalSports}`,
+        `Interested in Cultural Program: ${totalCultural}`,
+        `Magazine Participation: ${totalMagazine}`
+      ];
+      stats.forEach((s, i) => doc.text(s, 14, 38 + i*7));
+
+      // Table header
+      let y = 90;
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(255,215,0);
+      const headers = ["Name", "Phone", "Batch", "Persons", "Accommodation", "Day 1", "Day 2", "Sports", "Cultural", "Magazine"];
+      headers.forEach((h, i) => doc.text(h, 14 + i*32, y, { maxWidth: 32 }));
+      doc.setLineWidth(0.2);
+      doc.line(14, y+2, 14+headers.length*32, y+2);
+
+      // Table rows
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(23,105,170);
+      registrations.forEach((reg, idx) => {
+        let rowY = y + 9 + idx*7;
+        let row = [reg.name, reg.phone, reg.batch, reg.persons, reg.accommodation, reg.day1, reg.day2, reg.sports, reg.cultural, reg.magazine];
+        row.forEach((val, i) => {
+          doc.text(String(val), 14 + i*32, rowY, { maxWidth: 32 });
+        });
+      });
+
+      doc.save("HOMA_Alumni_Registrations.pdf");
+    }
+  </script>
+</body>
+</html>
